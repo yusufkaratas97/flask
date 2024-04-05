@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, make_response, request, render_template
+from flask import Flask, jsonify, make_response, request, render_template, redirect, url_for
 from mathematics import summation, subtraction, multiplication
 
 add_num = []
@@ -9,17 +9,22 @@ data = [
     {
         "id": "1",
         "first_name": "yusuf",
-        "last_name": "masri"
+        "last_name": "asdas"
     },
     {
         "id": "2",
         "first_name": "ibrahim",
-        "last_name": "masri"
+        "last_name": "qweqw"
     },
     {
         "id": "3",
         "first_name": "omar",
-        "last_name": "masri"
+        "last_name": "tyuty"
+    },
+    {
+        "id": "4",
+        "first_name": "yusuf",
+        "last_name": "asa"
     }
 ]
 
@@ -69,7 +74,9 @@ def name_search():
 @app.route("/count")
 def count():
     try:
-        return {"data count": len(data)}, 200
+        for dat in data:
+            print(dat)
+        return {"data count": f"{len(data)} and {data}"}, 200
     except NameError:
         return {"message": "data not defined"}, 500
     
@@ -119,5 +126,17 @@ def mul_route():
     result = multiplication(num1,num2)
     return str(result)
 
-    
+@app.route("/add")
+def add_person():
+    data.append(5)
+    return {"message":f"added"}, 200
+
+@app.route('/admin')
+def admin():
+    return redirect(url_for('login'))
+@app.route('/login')
+def login():
+    return "we \n"
+
+
 app.run(debug=1)  
