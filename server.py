@@ -83,3 +83,5 @@ def delete_by_id(id):
             data.remove(person)
             return {"message":f"{id} removed"}, 200
     return {"message": f"{id} not found"}, 404
+
+@app
