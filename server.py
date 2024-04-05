@@ -1,6 +1,8 @@
 from flask import Flask, jsonify, make_response, request, render_template
 from mathematics import summation, subtraction, multiplication
 
+add_num = []
+
 app = Flask(__name__)
 
 data = [
@@ -23,6 +25,8 @@ data = [
 
 @app.route('/')
 def index():
+    add_num.append(1)
+    print(add_num)
     return jsonify({"message": "Hello World"})
 
 
@@ -95,6 +99,8 @@ def sum_route():
     num1 = float(request.args.get('num1'))
     num2 = float(request.args.get('num2'))
     result = summation(num1,num2)
+    add_num.append(result)
+    print(add_num)
     return str(result)
 
 @app.route("/calculator/sub")
@@ -106,8 +112,10 @@ def sub_route():
 
 @app.route("/calculator/mul")
 def mul_route():
-    num1 = float(request.args.get('num1'))
-    num2 = float(request.args.get('num2'))
+    num1 = float(request.args.get('num1',type=str))
+    num2 = float(request.args.get('num2',type=str))
+    #num1 = 10
+    #num2 = 20
     result = multiplication(num1,num2)
     return str(result)
 
